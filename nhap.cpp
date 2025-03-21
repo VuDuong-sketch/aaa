@@ -1,9 +1,15 @@
-#include <fstream>
+#include <iostream>
 using namespace std;
 
-int main() {
-	ofstream outfile("C:/Users/Administrator/Pictures/abcd.txt");
-	outfile << "edited";
+void sizeArray(int a[]) {
+	cout << sizeof(a) / sizeof(int) << endl;
+}
 
+int main() {
+	int a[10];
+	
+	sizeArray(a);
+	
+	cout << sizeof(a) / sizeof(int) << endl;
 	return 0;
 }
