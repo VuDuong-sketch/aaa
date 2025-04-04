@@ -15,19 +15,19 @@ void moveGame(const string& path);
 
 int main(int argc, char* argv[]) {
 	
-	string path, level;
-	bool flag;
+	SDL_Event e;
+	int count = 0;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	initSDL(window, renderer);
 	
-	do {
-		path = "E:/Sketch/map/level";
-		cout << "Chon man: ";
-		cin >> level;
-		path += level;
-		path += ".txt";
-		moveGame(path);
-		cout << "Ban co muon choi tiep? (1 or 0) : ";
-		cin >> flag;
-	} while( flag );
+	while( SDL_PollEvent(&e) );
 	
+	while( SDL_WaitEvent(&e) ) {
+		count++;
+		cout << count << endl;
+	}
+	
+	quitSDL(window, renderer);
 	return 0;
 }
