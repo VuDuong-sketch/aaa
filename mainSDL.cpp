@@ -12,21 +12,29 @@ void waitUntilPressed();
 
 void moveGame(const string& path);
 
+void ChuNhatDac(SDL_Renderer* renderer, int a, int b);
+
+void Tuong(SDL_Renderer* renderer, int a, int b);
+
+void ChuX (SDL_Renderer* renderer, int a, int b);
+
+void Box (SDL_Renderer* renderer, int a, int b);
+
 
 int main(int argc, char* argv[]) {
 	
-	SDL_Event e;
-	int count = 0;
+	
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	initSDL(window, renderer);
 	
-	while( SDL_PollEvent(&e) );
+	Tuong(renderer, 1, 1);
 	
-	while( SDL_WaitEvent(&e) ) {
-		count++;
-		cout << count << endl;
-	}
+	ChuX(renderer, 3, 3);
+	
+	SDL_RenderPresent(renderer);
+	
+	waitUntilPressed();
 	
 	quitSDL(window, renderer);
 	return 0;

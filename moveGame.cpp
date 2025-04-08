@@ -12,6 +12,14 @@ void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
 
 void waitUntilPressed();
 
+void ChuNhatDac(SDL_Renderer* renderer, int a, int b);
+
+void Tuong(SDL_Renderer* renderer, int a, int b);
+
+void ChuX (SDL_Renderer* renderer, int a, int b);
+
+void Box (SDL_Renderer* renderer, int a, int b);
+
 char a[100][100], x[100][100];
 int m, n;
 SDL_Event e;
@@ -147,35 +155,6 @@ void Move() {
 		M.x++;
 		return;
 	}
-}
-
-void ChuNhatDac(SDL_Renderer* renderer, int a, int b) {
-	
-	int x1 = (a - 1) * K,
-		y1 = (b - 1) * K,
-		x2 = a * K - 1,
-		y2 = b * K - 1;
-	
-	
-	for(int i = y1; i <= y2; i++) {
-		for(int j = x1; j <= x2; j++) {
-			SDL_RenderDrawPoint(renderer, j, i);
-		}
-	}
-}
-
-void ChuX (SDL_Renderer* renderer, int a, int b) {
-	int x1 = (a - 1) * K,
-		y1 = (b - 1) * K,
-		x2 = a * K - 1,
-		y2 = b * K - 1;
-		
-	for(int i = y1, j = x1; i <= y2; i++, j++) {
-		SDL_RenderDrawPoint(renderer, j, i);
-	}
-	for(int i = y1, j = x2; i <= y2; i++, j--) {
-		SDL_RenderDrawPoint(renderer, j, i);
-	}	
 }
 
 void moveGame(const string& path) {
