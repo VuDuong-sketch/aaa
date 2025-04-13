@@ -12,8 +12,8 @@ struct Node {
 	}
 };
 
-void AddFirst (Node*& head, int n) {
-	Node* newNode = new Node(n);
+void AddFirst (Node*& head, int data) {
+	Node* newNode = new Node(data);
 	newNode->next = head;
 	head = newNode;
 }
@@ -41,10 +41,10 @@ void reversePrint(Node* head) {
 	cout << head->data << endl;
 }
 
-Node* insertNodeAtTail(Node* head, int n) {
+void insertNodeAtTail(Node*& head, int data) {
 	if( head == NULL ) {
-		head = new Node(n);
-		return head;
+		head = new Node(data);
+		return;
 	}
 	
 	Node* iter = head;
@@ -52,21 +52,20 @@ Node* insertNodeAtTail(Node* head, int n) {
 	while ( iter->next != NULL) {
 		iter = iter->next;
 	}
-	iter->next = new Node(n);
-	return head;
+	iter->next = new Node(data);
 }
 
-void insertNode(Node* node, int n) {
-	Node* newNode = new Node(n);
+void insertNode(Node* node, int data) {
+	Node* newNode = new Node(data);
 	
 	newNode->next = node->next;
 	node->next = newNode;
 }
 
-void insertNodeAtPosition(Node*& head, int n, int position) {
+void insertNodeAtPosition(Node*& head, int data, int position) {
 	Node* iter = head;
 	if(position == 0 ) {
-		AddFirst(head, n);
+		AddFirst(head, data);
 		return;
 	}
 	int i = 1;
@@ -74,7 +73,7 @@ void insertNodeAtPosition(Node*& head, int n, int position) {
 		iter = iter->next;
 		i++;
 	}
-	insertNode(iter, n);
+	insertNode(iter, data);
 }
 
 void deleteNode(Node*& head, int position) {
@@ -112,29 +111,120 @@ void reverse(Node*& head) {
 	head = a;
 }
 
-int main() {
-	
+bool compare_lists( Node* head1, Node* head2 ) {
+	Node* iter1 = head1;
+	Node* iter2 = head2;
+	while( true ) {
+		if( iter1 == NULL && iter2 == NULL ) return true;
+		else if( iter1 == NULL || iter2 == NULL ) return false;
+		
+		if( iter1->data != iter2->data ) return false;
+		
+		iter1 = iter1->next;
+		iter2 = iter2->next;
+	}
+}
+
+Node* initNode( int n ) {
 	Node* head = NULL;
 	
-	head = insertNodeAtTail(head, 10);
-	AddFirst(head, 2);
-	AddFirst(head, 3);
-	AddFirst(head, 4);
-	AddFirst(head, 5);
-	AddFirst(head, 6);
+	for(int i = 1; i <= n; i++) {
+		int data;
+		cin >> data;
+		insertNodeAtTail(head, data);
+	}
+	return head;
+}
+
+Node* mergeLists( Node* head1, Node* head2 ) {
+	Node* head = NULL;
+	Node* iter1 = head1;
+	Node* iter2 = head2;
 	
-	head = insertNodeAtTail(head, 0);
+	bool increase = true;
 	
-	insertNodeAtPosition(head, 99, 3);
 	
-	deleteNode(head, 4);
+	while( iter1->next != NULL ) {
+		iter1 = iter1->next;
+	}
+	while( iter2->next != NULL ) {
+		iter2 = iter2->next;
+	}
 	
-	print(head);
+	if( head1->data < iter1->data ) increase = true;
 	
-	reversePrint(head);
+	else if( head1->data > iter1->data ) increase = false;
 	
-	reverse(head);
-	print(head);
+	else {
+		if( head2->data < iter2->data ) increase = true;
+		else if( head2->data > iter2->data ) increase = false;
+	}
+	
+	iter1 = head1;
+	iter2 = head2;
+	
+	if( increase ) while( true ) {
+		if( iter1 == NULL ) {
+			while( iter2 != NULL ) {
+				insertNodeAtTail(head, iter2->data);
+				iter2 = iter2->next;
+			}
+			break;
+		}
+		else if( iter2 == NULL ) {
+			while( iter1 != NULL ) {
+				insertNodeAtTail(head, iter1->data);
+				iter1 = iter1->next;
+			}
+			break;
+		}
+		
+		if( iter1->data < iter2->data ) {
+			insertNodeAtTail(head, iter1->data);
+			iter1 = iter1->next;
+		}
+		else {
+			insertNodeAtTail(head, iter2->data);
+			iter2 = iter2->next;
+		}
+	}
+	else while( true ) {
+		if( iter1 == NULL ) {
+			while( iter2 != NULL ) {
+				insertNodeAtTail(head, iter2->data);
+				iter2 = iter2->next;
+			}
+			break;
+		}
+		else if( iter2 == NULL ) {
+			while( iter1 != NULL ) {
+				insertNodeAtTail(head, iter1->data);
+				iter1 = iter1->next;
+			}
+			break;
+		}
+		
+		if( iter1->data > iter2->data ) {
+			insertNodeAtTail(head, iter1->data);
+			iter1 = iter1->next;
+		}
+		else {
+			insertNodeAtTail(head, iter2->data);
+			iter2 = iter2->next;
+		}
+	}
+	
+	return head;
+}
+
+int main() {
+	
+	Node* head1 = initNode(5);
+	Node* head2 = initNode(3);
+	
+	print( mergeLists(head1, head2) );
+	
+	
 	
 	return 0;
 }
