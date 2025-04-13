@@ -125,7 +125,7 @@ bool compare_lists( Node* head1, Node* head2 ) {
 	}
 }
 
-Node* initNode( int n ) {
+Node* init_LinkedList( int n ) {
 	Node* head = NULL;
 	
 	for(int i = 1; i <= n; i++) {
@@ -219,8 +219,8 @@ Node* mergeLists( Node* head1, Node* head2 ) {
 
 int main() {
 	
-	Node* head1 = initNode(5);
-	Node* head2 = initNode(3);
+	Node* head1 = init_LinkedList(5);
+	Node* head2 = init_LinkedList(3);
 	
 	print( mergeLists(head1, head2) );
 	
