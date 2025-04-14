@@ -26,6 +26,14 @@ void print(Node* iter) {
 	cout << endl;
 }
 
+void printAddress(Node* iter) {
+	while( iter != NULL ) {
+		cout << iter->next << ' ';
+		iter = iter->next;
+	}
+	cout << endl;
+}
+
 void recursionPrint(Node* iter) {
 		
 	iter = iter->next;
@@ -217,14 +225,40 @@ Node* mergeLists( Node* head1, Node* head2 ) {
 	return head;
 }
 
+
+
 int main() {
 	
-	Node* head1 = init_LinkedList(5);
-	Node* head2 = init_LinkedList(3);
+	Node* head = init_LinkedList(2);
+	head->next == NULL;
+	printAddress(head);
+	print(head);
+	//print(head);
 	
-	print( mergeLists(head1, head2) );
+	//Node* iter = head;
 	
+	//while( iter->next != NULL ) {
+		
+		//for( iterr->next != NULL;) {
+			//Node* iterr = iter;
+			//if( (iterr->next)->data == iter->data ) {
+			    //Node* oldNode = iterr->next;
+			    //if( (iterr->next)->next != NULL ) iterr->next = (iterr->next)->next;
+			    //else 
+				
+			    //delete oldNode;
+			    //cout << 1 << endl;
+			//}
+			//else iterr = iterr->next;
+			
+		//}
+		//cout << 1;
+		//if( iter->next == NULL ) break;
+		
+		//iter = iter->next;
+	//}
 	
+	//print(head);
 	
 	return 0;
 }

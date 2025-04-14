@@ -28,13 +28,23 @@ int main(int argc, char* argv[]) {
 	SDL_Renderer* renderer;
 	initSDL(window, renderer);
 	
-	Tuong(renderer, 1, 1);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 	
-	ChuX(renderer, 3, 3);
-	
+	ChuNhatDac(renderer, 1, 1);
 	SDL_RenderPresent(renderer);
 	
-	waitUntilPressed();
+	SDL_Event e;
+	int count = 0;
+	
+	while( SDL_WaitEvent(&e) ) {
+		if( e.type == SDL_MOUSEBUTTONDOWN ) {
+			if( e.button.button == SDL_BUTTON_LEFT ) {
+				if( e.button.x < 100 && e.button.y < 100 ) {
+					cout << ++count << endl;
+				}
+			}
+		}
+	}
 	
 	quitSDL(window, renderer);
 	return 0;
