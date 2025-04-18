@@ -225,40 +225,84 @@ Node* mergeLists( Node* head1, Node* head2 ) {
 	return head;
 }
 
+Node* insert( Node* head, int data ) {
+	if( head == NULL ) {
+		head = new Node(data);
+		return head;
+	}
+	if( head->next == NULL ) {
+		if( head->data < data ) insertNodeAtTail(head, data);
+		else AddFirst(head, data);
+		return head;
+	}
+	
+	if( data < head->data ) {
+		AddFirst(head, data);
+		return head;
+	}
+	
+	Node* iter1 = head;
+	Node* iter2 = head->next;
+	
+	while( iter2 != NULL ) {
+		
+		if( iter1->data <= data && data <= iter2->data ) {
+			insertNode(iter1, data);
+			return head;
+		}
+		
+		iter1 = iter1->next;
+		iter2 = iter2->next;
+	}
+	insertNode(iter1, data);
+	return head;
+}
 
+Node* convert(Node* head)
+{
+    // Your code here
+    
+    if( head == NULL ) return head;
+    if( head->next->next == NULL ) return head;
+    
+    Node* iter1 = head;
+    Node* iter2 = head->next;
+    while( iter2->next != NULL ) {
+        iter1 = iter1->next;
+        iter2 = iter2->next->next;
+    }
+    
+    
+    cout << 1 << endl;
+    
+    Node* a1 = head;
+    Node* a2 = a1->next;
+    Node* b1 = iter1->next;
+    iter1->next = NULL;
+    Node* b2 = b1->next;
+    
+    while( a2 != NULL ) {
+        a1->next = b1;
+        b1->next = a2;
+        a1 = a2;
+        a2 = a2->next;
+        b1 = b2;
+        b2 = b2->next;
+        cout << 1 << endl;
+    }
+    
+    a1->next = b1;
+    
+    return head;
+}
 
 int main() {
 	
-	Node* head = init_LinkedList(2);
-	head->next == NULL;
-	printAddress(head);
+	Node* head = init_LinkedList(6);
+	
+	head = convert(head);
+	
 	print(head);
-	//print(head);
-	
-	//Node* iter = head;
-	
-	//while( iter->next != NULL ) {
-		
-		//for( iterr->next != NULL;) {
-			//Node* iterr = iter;
-			//if( (iterr->next)->data == iter->data ) {
-			    //Node* oldNode = iterr->next;
-			    //if( (iterr->next)->next != NULL ) iterr->next = (iterr->next)->next;
-			    //else 
-				
-			    //delete oldNode;
-			    //cout << 1 << endl;
-			//}
-			//else iterr = iterr->next;
-			
-		//}
-		//cout << 1;
-		//if( iter->next == NULL ) break;
-		
-		//iter = iter->next;
-	//}
-	
-	//print(head);
 	
 	return 0;
 }
