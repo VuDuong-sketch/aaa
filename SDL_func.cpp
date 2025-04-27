@@ -28,6 +28,8 @@ void waitUntilPressed() {
 	}
 }
 
+
+
 void ChuNhatDac(SDL_Renderer* renderer, int a, int b) {
 	
 	int x1 = (a - 1) * K,
@@ -220,4 +222,127 @@ void Box (SDL_Renderer* renderer, int a, int b) {
 		}
 	}
 }
+
+int coor_convert_x ( int x ,int j ) {
+	
+	return K * (j - 1) + x - 1;
+	
+}
+
+int coor_convert_y ( int y ,int i ) {
+	
+	return K * (i - 1) + y - 1;
+	
+}
+
+void DrawPoint (SDL_Renderer* renderer, int x, int y, int i, int j) {
+	SDL_RenderDrawPoint(renderer, coor_convert_x(x, j), coor_convert_y(y, i));
+}
+
+void Draw_Arrow (SDL_Renderer* renderer, int i, int j) {
+	
+	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 0);
+	
+	for(int y = 1; y <= 50; y++) {
+		for(int x = 1; x <= 50; x++) {
+			if( x + y >= 76 ) {
+				DrawPoint(renderer, x, y, i, j);
+			}
+		}
+	}
+	for(int y = 51; y <= 100; y++) {
+		for(int x = 1; x <= 50; x++) {
+			if( y - x <= 25 ) {
+				DrawPoint(renderer, x, y, i, j);
+			}
+		}
+	}
+	for(int y = 38; y <= 63; y++) {
+		for(int x = 51; x <= 75; x++) {
+			DrawPoint(renderer, x, y, i, j);
+		}
+	}
+	
+}
+
+void Draw_Character() {
+		SDL_SetRenderDrawColor(renderer, 255, 127, 0, 0);
+		for(int y = 1; y <= 100; y++) {
+			for(int x = 1; x <= 100; x++) {
+				if( pow(double(x) - 50.5, 2) + pow(double(y) - 50.5, 2) < 2500 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+
+		for(int y = 26; y <= 50; y++) {
+			for(int x = 13; x <= 38; x++) {
+				if( pow(double(x) - 25.5, 2) + pow(y - 50, 2) < 18 * 18 && pow(double(x) - 25.5, 2) + pow(y - 26, 2) < 18 * 18 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		for(int y = 26; y <= 50; y++) {
+			for(int x = 63; x <= 88; x++) {
+				if( pow(double(x) - 75.5, 2) + pow(y - 50, 2) < 18 * 18 && pow(double(x) - 75.5, 2) + pow(y - 26, 2) < 18 * 18 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		
+		SDL_SetRenderDrawColor(renderer, 0, 0, 127, 0);
+		for(int y = 26; y <= 50; y++) {
+			for(int x = 1; x <= 50; x++) {
+				if( pow(double(x) - 25.5, 2) + pow(y - 38, 2) < 7 * 7 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		for(int y = 26; y <= 50; y++) {
+			for(int x = 51; x <= 100; x++) {
+				if( pow(double(x) - 75.5, 2) + pow(y - 38, 2) < 7 * 7 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 0);
+		for(int y = 26; y <= 50; y++) {
+			for(int x = 1; x <= 50; x++) {
+				if( pow(double(x) - 25.5, 2) + pow(y - 38, 2) < 6 * 6 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		for(int y = 26; y <= 50; y++) {
+			for(int x = 51; x <= 100; x++) {
+				if( pow(double(x) - 75.5, 2) + pow(y - 38, 2) < 6 * 6 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		for(int y = 1; y <= 50; y++) {
+			for(int x = 13; x <= 38; x++) {
+				if( int(sqrt(pow(double(x) - 25.5, 2) + pow(y - 49, 2))) >= 18 && int(sqrt(pow(double(x) - 25.5, 2) + pow(y - 49, 2))) <= 19 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		for(int y = 1; y <= 50; y++) {
+			for(int x = 63; x <= 88; x++) {
+				if( int(sqrt(pow(double(x) - 75.5, 2) + pow(y - 49, 2))) >= 18 && int(sqrt(pow(double(x) - 75.5, 2) + pow(y - 49, 2))) <= 19 ) {
+					DrawPoint(renderer, x, y, i, j);
+				}
+			}
+		}
+		
+	}
+
+
+
+
+
 
