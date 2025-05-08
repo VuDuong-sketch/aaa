@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL.h>
+#include <cmath>
 
 using namespace std;
 
@@ -265,81 +266,84 @@ void Draw_Arrow (SDL_Renderer* renderer, int i, int j) {
 	
 }
 
-void Draw_Character() {
-		SDL_SetRenderDrawColor(renderer, 255, 127, 0, 0);
-		for(int y = 1; y <= 100; y++) {
-			for(int x = 1; x <= 100; x++) {
-				if( pow(double(x) - 50.5, 2) + pow(double(y) - 50.5, 2) < 2500 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+bool left_horn(int x, int y) {
+	return ( y <= 3 * x - 50 && y >= x - 10 && y <= -x + 50 );
+}
 
-		for(int y = 26; y <= 50; y++) {
-			for(int x = 13; x <= 38; x++) {
-				if( pow(double(x) - 25.5, 2) + pow(y - 50, 2) < 18 * 18 && pow(double(x) - 25.5, 2) + pow(y - 26, 2) < 18 * 18 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
+bool right_horn(int x, int y) {
+	return ( y >= -x + 90 && y <= x - 50 && y <= -3 * x + 250 );
+}
+
+bool left_eye(int x, int y) {
+	return ( 2 * y >= x + 45 && x >= 35 && 2 * y <= -x + 135 );
+}
+
+bool right_eye(int x, int y) {
+	return ( 2 * y <= x + 35 && x <= 65 && 2 * y >= -x + 145 );
+}
+
+void Draw_Test (SDL_Renderer* renderer, int i, int j) {
+	
+	SDL_SetRenderDrawColor(renderer, 127, 0, 255, 0);
+	
+	for(int y = 1; y <= 100; y++) {
+		for(int x = 1; x <= 100; x++) {
+			if( pow(double(x) - 50.5, 2) + pow(double(y) - 50.5, 2) <= 30 * 30 ) {
+				DrawPoint(renderer, x, y, i, j);
 			}
 		}
-		for(int y = 26; y <= 50; y++) {
-			for(int x = 63; x <= 88; x++) {
-				if( pow(double(x) - 75.5, 2) + pow(y - 50, 2) < 18 * 18 && pow(double(x) - 75.5, 2) + pow(y - 26, 2) < 18 * 18 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		
-		SDL_SetRenderDrawColor(renderer, 0, 0, 127, 0);
-		for(int y = 26; y <= 50; y++) {
-			for(int x = 1; x <= 50; x++) {
-				if( pow(double(x) - 25.5, 2) + pow(y - 38, 2) < 7 * 7 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		for(int y = 26; y <= 50; y++) {
-			for(int x = 51; x <= 100; x++) {
-				if( pow(double(x) - 75.5, 2) + pow(y - 38, 2) < 7 * 7 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		
-		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 0);
-		for(int y = 26; y <= 50; y++) {
-			for(int x = 1; x <= 50; x++) {
-				if( pow(double(x) - 25.5, 2) + pow(y - 38, 2) < 6 * 6 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		for(int y = 26; y <= 50; y++) {
-			for(int x = 51; x <= 100; x++) {
-				if( pow(double(x) - 75.5, 2) + pow(y - 38, 2) < 6 * 6 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-		for(int y = 1; y <= 50; y++) {
-			for(int x = 13; x <= 38; x++) {
-				if( int(sqrt(pow(double(x) - 25.5, 2) + pow(y - 49, 2))) >= 18 && int(sqrt(pow(double(x) - 25.5, 2) + pow(y - 49, 2))) <= 19 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		for(int y = 1; y <= 50; y++) {
-			for(int x = 63; x <= 88; x++) {
-				if( int(sqrt(pow(double(x) - 75.5, 2) + pow(y - 49, 2))) >= 18 && int(sqrt(pow(double(x) - 75.5, 2) + pow(y - 49, 2))) <= 19 ) {
-					DrawPoint(renderer, x, y, i, j);
-				}
-			}
-		}
-		
 	}
+	
+	for(int y = 10; y <= 25; y++) {
+		for(int x = 20; x <= 30; x++) {
+			if( left_horn(x, y) ) {
+				DrawPoint(renderer, x, y, i, j);
+			}
+		}
+	}
+	
+	for(int y = 10; y <= 25; y++) {
+		for(int x = 70; x <= 80; x++) {
+			if( right_horn(x, y) ) {
+				DrawPoint(renderer, x, y, i, j);
+			}
+		}
+	}
+	
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	for(int y = 40; y <= 50; y++) {
+		for(int x = 35; x <= 45; x++) {
+			if( left_eye(x, y) ) {
+				DrawPoint(renderer, x, y, i, j);
+			}
+		}
+	}
+	
+	for(int y = 40; y <= 50; y++) {
+		for(int x = 55; x <= 65; x++) {
+			if( right_eye(x, y) ) {
+				DrawPoint(renderer, x, y, i, j);
+			}
+		}
+	}
+	
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+	DrawPoint(renderer, 38, 45, i, j);
+	DrawPoint(renderer, 38 + 1, 45, i, j);
+	DrawPoint(renderer, 38 - 1, 45, i, j);
+	DrawPoint(renderer, 38, 45 + 1, i, j);
+	DrawPoint(renderer, 38, 45 - 1, i, j);
+	
+	DrawPoint(renderer, 62, 45, i, j);
+	DrawPoint(renderer, 62 + 1, 45, i, j);
+	DrawPoint(renderer, 62 - 1, 45, i, j);
+	DrawPoint(renderer, 62, 45 + 1, i, j);
+	DrawPoint(renderer, 62, 45 - 1, i, j);
+	
+	
+}
+
+
 
 
 
