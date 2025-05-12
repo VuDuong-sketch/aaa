@@ -92,6 +92,24 @@ void Draw_Filled_Square (SDL_Renderer* renderer, int i, int j) {
 	}
 }
 
+void Draw_Empty_Square (SDL_Renderer* renderer, int i, int j) {
+	
+	int x1 = (j - 1) * K,
+		y1 = (i - 1) * K,
+		x2 = j * K - 1,
+		y2 = i * K - 1;
+	
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+	for(int y = y1; y <= y2; y++) {
+		SDL_RenderDrawPoint(renderer, x1, y);
+		SDL_RenderDrawPoint(renderer, x2, y);
+	}
+	for(int x = x1; x <= x2; x++) {
+		SDL_RenderDrawPoint(renderer, x, y1);
+		SDL_RenderDrawPoint(renderer, x, y2);
+	}
+}
+
 char* string_to_CharPointer (const string& s) {
 	char* ptr = new char[s.length() + 1];
 	for(int i = 0; s[i] != '\0'; i++) {
@@ -162,12 +180,17 @@ int main(int argc, char** argv) {
 	SDL_Renderer* renderer;
 	initSDL(window, renderer);
 	
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+	
 	for(int i = 1; i <= 6; i++) {
 		for(int j = 1; j <= 8; j++) {
 			Draw_Number(renderer, i, j, 10 * i + j);
+			Draw_Empty_Square(renderer, i, j);
 		}
 	}
+	
+	
+	
+	
 	SDL_RenderPresent(renderer);
 	
 	ofstream outfile("C:/Users/Administrator/test.txt");
@@ -179,7 +202,9 @@ int main(int argc, char** argv) {
 		
 		if( e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT ) {
 			
-			outfile << convert(e.button.y) << ' ' << convert(e.button.x) << ' ' << 120 << endl;
+			cout << convert(e.button.y) << convert(e.button.x) << endl;
+			
+			outfile << convert(e.button.y) << convert(e.button.x) << endl;
 		}
 	}
 	
