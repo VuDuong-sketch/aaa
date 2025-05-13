@@ -204,7 +204,7 @@ int main(int argc, char** argv) {
 			
 			cout << convert(e.button.y) << convert(e.button.x) << endl;
 			
-			outfile << convert(e.button.y) << convert(e.button.x) << endl;
+			outfile << convert(e.button.y) << ' ' << convert(e.button.x) << 120 << endl;
 		}
 	}
 	
